@@ -32,7 +32,7 @@ jobs:
     - name: Add readme to mods dir
       run: echo This is the directory where you put mods to be loaded by gmsl! > out/gmsl/mods/readme.txt
 
-    - name: Upload a Build Artifact
+    - name: Upload the Build Artifact
       uses: actions/upload-artifact@v3.1.3
       with:
         name: gmsl-win64
