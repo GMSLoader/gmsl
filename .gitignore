@@ -3,7 +3,6 @@
 .idea/
 build/
 out/
-vendor/
 bin/
 obj/
 *.sln
