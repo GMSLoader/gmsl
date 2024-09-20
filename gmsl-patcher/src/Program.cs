@@ -109,7 +109,7 @@ public static class Program
 
             foreach (var type in modAssembly.GetTypes())
             {
-                if (type.GetInterfaces().Contains(typeof(ModInfo)))
+                if (type.GetInterfaces().Contains(typeof(IGMSLMod)))
                 {
                     var instance = (IGMSLMod)Activator.CreateInstance(type)!;
                     Environment.CurrentDirectory = mod.ModDir;
@@ -159,7 +159,6 @@ public static class Program
         stream.Dispose();
 
         Logger.Info("Launching game...");
-        Console.ReadLine();
         StartGame(args, baseDir!);
     }
 
