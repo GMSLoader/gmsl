@@ -5,16 +5,16 @@ on:
   workflow_call:
   pull_request:
     branches:
-    - '**'
+      - '**'
   push:
     branches:
-    - '**'
-    - '!master'
+      - '**'
+      - '!master'
 
 env:
   BUILD_TYPE: Release
   PKG_CONFIG_PATH: C:\Mono\lib\pkgconfig
-  
+
 jobs:
   build:
     runs-on: windows-latest
@@ -24,7 +24,17 @@ jobs:
       with:
         submodules: 'true'
 
-    - name: Download mono with chocolatey
+    - name: Cache Mono
+      id: cache-mono
+      uses: actions/cache@v3
+      with:
+        path: C:\Mono
+        key: mono
+        restore-keys: |
+          mono
+
+    - name: Install Mono with Chocolatey
+      if: steps.cache-mono.outputs.cache-hit != 'true'
       run: choco install mono --ignore-checksums -ia "INSTALLFOLDER=C:\Mono"
 
     - name: Install pkgconfiglite with chocolatey
