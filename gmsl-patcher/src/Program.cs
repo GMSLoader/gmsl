@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Runtime.InteropServices;
 using GMSL;
 using GMSL.Logger;
+using UndertaleModLib.Compiler;
 
 namespace gmsl_patcher;
 
@@ -43,7 +44,13 @@ public static class Program
 
         Logger.Info("Reading data.win...");
         var stream = File.OpenRead(Path.Combine(baseDir!, "data.win"));
-        var data = UndertaleIO.Read(stream, Logger.Error, _ => { });
+        var data = UndertaleIO.Read(stream, (message, important) =>
+        {
+            if (important)
+                Logger.Error(message);
+            else
+                Logger.Warn(message);
+        }, _ => { });
         stream.Dispose();
 
         if (File.Exists(Path.Combine(baseDir!, "cache.win")))
@@ -282,10 +289,13 @@ public static class Program
     private static UndertaleScript CreateLegacyScript(UndertaleData data, string name, string code, ushort argCount)
     {
         var mainName = data.Strings.MakeString(name, out var nameIndex);
-        var mainCode = CreateCode(data, mainName, out _);
+        var mainCode = UndertaleCode.CreateEmptyEntry(data, mainName);
+        // var mainCode = CreateCode(data, mainName, out _);
         mainCode.ArgumentsCount = argCount;
 
-        mainCode.ReplaceGML(code, data);
+        CodeImportGroup group = new(data);
+        group.QueueReplace(mainCode, code);
+        group.Import();
 
         UndertaleScript script = new()
         {
