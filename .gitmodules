@@ -1,0 +1,6 @@
+[submodule "gmsl-loader/vendor/minhook"]
+	path = gmsl-loader/vendor/minhook
+	url = https://github.com/TsudaKageyu/minhook
+[submodule "vendor/UndertaleModTool"]
+	path = vendor/UndertaleModTool
+	url = https://github.com/UnderminersTeam/UndertaleModTool
