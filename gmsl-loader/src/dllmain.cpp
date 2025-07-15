@@ -8,13 +8,11 @@
 #include <filesystem>
 #include <print>
 
-#define DLL_PROXY_ORIGINAL(name) original_##name
-
 #define EXPORT(name)                  \
-    FARPROC DLL_PROXY_ORIGINAL(name); \
+    FARPROC original_##name; \
     void _##name()                    \
     {                                 \
-        DLL_PROXY_ORIGINAL(name)();   \
+        original_##name();   \
     }
 #include "exports.h"
 #undef EXPORT
@@ -35,7 +33,7 @@ bool LoadProxy()
     if (!library)
         return false;
 
-#define EXPORT(name) DLL_PROXY_ORIGINAL(name) = GetProcAddress(library, #name);
+#define EXPORT(name) original_##name = GetProcAddress(library, #name);
 #include "exports.h"
 #undef EXPORT
 
