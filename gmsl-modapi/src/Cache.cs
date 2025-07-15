@@ -12,6 +12,7 @@ public static class Cache
     public static void AddFileToCache(string path)
     {
         if (!File.Exists(path)) return;
+        _hashes.Remove(path);
         _hashes.Add(path, GetHashForFile(path));
     }
 
@@ -42,6 +43,6 @@ public static class Cache
         using SHA256 sha256 = SHA256.Create();
         using FileStream fs = File.OpenRead(path);
 
-        return Encoding.ASCII.GetString(sha256.ComputeHash(fs));
+        return BitConverter.ToString(sha256.ComputeHash(fs)).Replace("-", "").ToLowerInvariant();
     }
 }

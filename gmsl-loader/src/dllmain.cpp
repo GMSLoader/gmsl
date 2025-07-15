@@ -100,6 +100,7 @@ HANDLE WINAPI HookedCreateFileW(
 
     std::filesystem::path path(lpFileName);
 
+    // this might have to be done on the second call to data.win because of game_change
     if (path.filename() == "data.win" && !patching)
     {
         std::println("Found data.win at path: {}", path.string());
