@@ -110,7 +110,7 @@ HANDLE WINAPI HookedCreateFileW(
             patchData(path.c_str());
             patching = false;
         }
-        path = path.remove_filename() / "gmsl" / "patcher" / "cache.win";
+        path = path.remove_filename() / "gmsl" / "cache" / "cache.win";
     }
 
     return originalCreateFileW(

@@ -14,6 +14,8 @@ public class Patcher
         {
             string path = Marshal.PtrToStringUni(pathPtr);
 
+            if (!Cache.IsCacheOutdated()) return;
+
             var fs = File.OpenRead(path);
             UndertaleData data = UndertaleIO.Read(fs, (message, _) =>
             {
@@ -34,6 +36,8 @@ public class Patcher
                     continue;
                 }
 
+                Cache.AddFileToCache(modPath);
+
                 var assembly = Assembly.LoadFile(modPath);
 
                 foreach (var type in assembly.GetTypes())
@@ -47,15 +51,18 @@ public class Patcher
                 }
             }
 
-            fs = File.Open(Path.Combine(Path.GetDirectoryName(path), "gmsl", "patcher", "cache.win"), FileMode.Create, FileAccess.Write);
+            fs = File.Open(Path.Combine(Path.GetDirectoryName(path), "gmsl", "cache", "cache.win"), FileMode.Create, FileAccess.Write);
             UndertaleIO.Write(fs, data);
             fs.Dispose();
 
             Environment.CurrentDirectory = Path.GetDirectoryName(path);
+            Cache.SaveToFile();
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
+            Console.WriteLine("Pausing press enter to continute...");
+            Console.ReadLine();
         }
     }
 }

@@ -150,3 +150,5 @@ Makefile
 # IDE specific files (e.g., CLion, VS Code)
 .idea/
 .vscode/
+
+*.sln
