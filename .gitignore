@@ -147,14 +147,6 @@ Makefile
 *.user
 *.vcxproj*
 
-# Executables and libraries
-*.exe
-*.dll
-*.so
-*.dylib
-*.a
-*.lib
-
 # IDE specific files (e.g., CLion, VS Code)
 .idea/
 .vscode/
