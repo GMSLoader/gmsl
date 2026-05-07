@@ -68,9 +68,9 @@ Copy the contents of the `out/` directory into your game's root folder.
 
 | Directory | Description |
 |-----------|-------------|
-| `gmsl-loader` | Core loader — injected into the game process via `version.dll` proxy |
+| `gmsl-loader` | Core loader, loaded into the game process via `version.dll` proxy |
 | `gmsl-patcher` | Patches the game's data file at runtime to enable modding hooks |
-| `gmsl-interop` | Native bridge that allows C# mods to call into GameMaker internals |
+| `gmsl-interop` | Native bridge that allows GameMaker to call C# |
 | `gmsl-modapi` | C# mod API that mods reference to interact with the loader |
 | `vendor/` | Third-party dependencies |
 
