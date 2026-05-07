@@ -47,7 +47,7 @@ The final folder structure should look something like this:
 1. Clone the repo recursively:
 
     ```sh
-    git clone https://github.com/GMSLoader/gmsl.git --recursive
+    git clone https://github.com/GMSLoader/gmsl.git --recurse-submodules
     cd gmsl
     ```
 
