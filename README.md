@@ -6,7 +6,8 @@ A mod loader for GameMaker Studio 2 games with C# interop and mod blacklist / wh
 
 1. Download the latest release from the [releases page](https://github.com/GMSLoader/gmsl/releases/tag/development-build)
 2. Unpack the downloaded archive into your game's root folder
-
+3. If you are on linux you need to add an override for version in your prefix and install dotnet 8 into it
+   
 ## Usage
 
 ### Players
